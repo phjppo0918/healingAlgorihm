@@ -47,17 +47,18 @@ class TestCase {
     }
     
     private void CountBridge() {
-        Long count = 1l;
+        BigInteger count = new BigInteger("1");
         for(int i=numberOfEastSite; i>numberOfWestSite; i--){
-            count *= i; 
+            
+           count = count.multiply(new BigInteger(i+""));
         }
         for(int i=numberOfEastSite-numberOfWestSite; i>1; i--){
-            count /= i;
+            count = count.divide(new BigInteger(i+""));
         }
         this.numberOfBridge = count;
     }
     
-    public Long getNumberofBridge() {
+    public BigInteger getNumberofBridge() {
         return this.numberOfBridge;
     } 
     
