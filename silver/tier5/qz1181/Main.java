@@ -1,31 +1,47 @@
-// 단어 정렬
-import java.util.*;
-import java.io.*;
-//import java.math.BigInteger;
-public class Main{
-    public static void main(String [] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        
-        
-        final int NUMBER_OF_VOCA = Integer.parseInt(br.readLine());
-        String voca [] = new String [NUMBER_OF_VOCA];
-        for(int i=0;i<NUMBER_OF_VOCA;i++) {
-            voca[i] = br.readLine();
-        }
-        String sort [] = new String [NUMBER_OF_VOCA];
-       //퀵 정렬 도입 + 중복 제거 + 단어순 정렬
-       
-        for(int i=0;i<NUMBER_OF_VOCA;i++) {
-            bw.write(voca[i]+"\n");
-        }
-        
-        
-        bw.flush();
-		br.close();
-		bw.close();
-        
-        
-    }
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+ 
+ 
+public class Main {
+	public static void main(String[] args) throws IOException {
     
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+		int N = Integer.parseInt(br.readLine());
+ 
+		String[] arr = new String[N];
+ 
+		for (int i = 0; i < N; i++) {
+			arr[i] = br.readLine();
+		}
+		
+		Arrays.sort(arr, new Comparator<String>() {
+			public int compare(String s1, String s2) {
+				// 단어 길이가 같을 경우 
+				if (s1.length() == s2.length()) {
+					return s1.compareTo(s2);
+				} 
+				// 그 외의 경우 
+				else {
+					return s1.length() - s2.length();
+				}
+			}
+		});
+ 
+		StringBuilder sb = new StringBuilder();
+ 
+		sb.append(arr[0]).append('\n');
+		
+		for (int i = 1; i < N; i++) {
+			// 중복되지 않는 단어만 출력
+			if (!arr[i].equals(arr[i - 1])) {
+				sb.append(arr[i]).append('\n');
+			}
+		}
+		System.out.println(sb);
+	}
+ 
 }
