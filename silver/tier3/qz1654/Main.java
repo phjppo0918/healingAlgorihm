@@ -14,18 +14,32 @@ public class Main{
         NUMBER_OF_LAN_CABLE_REQUIRED = Integer.parseInt(st.nextToken()); //<=1,000,000
         
         lanCable = new long [NUMBER_OF_LAN_CABLE]; //각 요소 <= 2,147,483,647
-        long longestCable = 0;
+        long answer = 0;
         for(int i=0;i<NUMBER_OF_LAN_CABLE;i++) {
-            lanCable[i] = Integer.parseInt(br.readLine());
-            if(lanCable[i]>longestCable) {
-                longestCable = lanCable[i];
+            lanCable[i] = Long.parseLong(br.readLine());
+            if(lanCable[i]>answer) {
+                answer = lanCable[i];
             }          
         }
-        
+        long low = 1l;
+        long middle = 0;
         //이분 탐색?
-        long answer = searchLongestLanCable(1,longestCable);
-        
-        //제일 큰 수를 등분
+        while(low<=answer) {
+            
+            middle = (low+answer)/2;
+            
+            int cutCount = 0;
+            for(int i=0;i<NUMBER_OF_LAN_CABLE;i++) {
+                cutCount += lanCable[i]/middle;
+            }
+            
+            if(cutCount >= NUMBER_OF_LAN_CABLE_REQUIRED) {
+                low = middle + 1;
+            }else{
+                answer = middle -1;
+            }
+            
+        }   
         
         bw.write(answer+"\n");
         
@@ -35,29 +49,4 @@ public class Main{
         
         
     }
-    
-    public static long searchLongestLanCable(long low, long high) {
-        long temp = (high+low)/2;
-        int numberOfCutCable = cutCable(temp);
-        if(low == temp||temp == high) {
-            return temp;
-        }
-        
-        if(numberOfCutCable >= NUMBER_OF_LAN_CABLE_REQUIRED) {
-            System.out.println(temp);
-            return searchLongestLanCable(temp,high);
-        }else {
-            System.out.println(temp);
-            return searchLongestLanCable(low,temp-1);
-        }
-    }
-    
-    public static int cutCable(long cutLength){
-        int cutCableCount = 0;
-        for(int i=0;i<lanCable.length;i++) {
-            cutCableCount += (lanCable[i]/cutLength);
-        }
-        
-        return cutCableCount;
-    }
-}
+} 
