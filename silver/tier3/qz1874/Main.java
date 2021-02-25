@@ -1,7 +1,7 @@
 //직사각형에서 탈출
 import java.util.*;
 import java.io.*;
-import java.math.BigInteger;
+//import java.math.BigInteger;
 public class Main{
     public static void main(String [] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -10,91 +10,109 @@ public class Main{
         
         final int NUMBER_OF_INPUT =  Integer.parseInt(br.readLine());
         int requestNumber [] = new int[NUMBER_OF_INPUT];
+        char answer [] = new char[NUMBER_OF_INPUT*2];
+        int answerPivot = -1;
+        Stack outputAscending = new Stack(NUMBER_OF_INPUT);
+        
         for(int i=0;i<NUMBER_OF_INPUT;i++){
             requestNumber[i] = Integer.parseInt(br.readLine());
+            outputAscending.push(NUMBER_OF_INPUT-i);
         }
 		br.close();
         
-       
-        int answerPivot = -1;
-        Stack stack = new Stack(NUMBER_OF_INPUT);
+        Stack buffer = new Stack(NUMBER_OF_INPUT);
         
-        //처음 시작
-        stack.push(requestNumber[0]);
-        stack.pop();
-      
-        answerPivot += requestNumber[0];
+        //시작값 설정;
+        int temp = outputAscending.pop();
+        buffer.push(temp);
+        //System.out.println("push:"+temp);
+        answer[++answerPivot] = '+';
         
-        for(int i=1;i<NUMBER_OF_INPUT-1;i++) {
-            if(requestNumber[i]==stack.nextPop()) {
-                stack.pop();
-            }else{
-                stack.push(requestNumber[i]);
+        for(int i=0;i<NUMBER_OF_INPUT;i++) {
+            
+            if(buffer.getPivot()==-1) {
+                temp = outputAscending.pop();
+                if(temp==-2) {
+                    break;
+                }
+                buffer.push(temp);
+               // System.out.println("push:"+temp);
+                answer[++answerPivot] = '+';
             }
+            
+            if(requestNumber[i] == buffer.nextPop()) {
+                buffer.pop();
+               // System.out.println("pop");
+                answer[++answerPivot] = '-';
+            }else {
+                while(requestNumber[i] != buffer.nextPop()) {
+                   
+                    temp = outputAscending.pop();
+                    if(temp==-2) {
+                        break;
+                    }
+                    buffer.push(temp);
+                   // System.out.println("push:"+temp);
+                    answer[++answerPivot] = '+';
+                }
+                buffer.pop();
+               // System.out.println("pop");
+                answer[++answerPivot] = '-';
+                
+                if(temp==-2) {
+                   break;
+                } 
+            }
+     
         }
-        if(stack.getPushPivot()==-1) {
+        
+        if(answer[NUMBER_OF_INPUT*2-1]!='-') {
             bw.write("NO\n");
         }else{
-            for(int i=0;i<NUMBER_OF_INPUT-1;i++){
-                bw.write(stack.answer[i]+"\n");
-            }
-            bw.write("-\n");
+            for(int i=0;i<NUMBER_OF_INPUT*2;i++) {
+                bw.write(answer[i]+"\n");
+            } 
         }
         
-       
         bw.flush();
-		bw.close(); 
-    }
+        bw.close();
+    }   
     
 }
+
 class Stack {
-    private int ascend[];
-    private int push[];
-    public char answer[]; //아...캡슐화 위반....애바
-    private int ascendPivot;
-    private int pushPivot = -1;
-    private int answerPivot = -1;
-    
-    public Stack(int stackLength) {        
-        ascend = new int [stackLength];
-        push = new int [stackLength];
-        answer = new char[stackLength*2];
-        
-        for(int i=stackLength;i>0;i--) {
-            this.ascend[i-1] = stackLength;
-        }
-        
-        this.ascendPivot = stackLength;
+    private int element[];
+    private int pivot = -1;
+    public Stack(int stackLength) {
+        element = new int [stackLength];
     }
     
-    public int push(){
-        push[++pushPivot] = ascend[--ascendPivot];
-        answer[++answerPivot] = '+';
-        return pushPivot;
-    }
-    
-    public int push(int reqNum) {
-        do{
-            push();
-            answer[++answerPivot] = '+';
-        }while(push[pushPivot]!=reqNum|| pushPivot== -1);
-        
-        return pushPivot;
-    }
-    
-    public int getPushPivot() {
-        return pushPivot;
+    public void push(int input) {
+        pivot++;
+        element[pivot] = input;
     }
     
     public int nextPop() {
-        return push[pushPivot];
+        if(pivot==-1||pivot==element.length){
+           
+            return -2;
+        }
+        int output = element[pivot];
+        return output;
     }
     
-    public int pop(){
-        answer[++answerPivot] = '-';
-        return push[pushPivot--];
+    public int pop() {
+        if(pivot==-1||pivot==element.length){
+            
+            return -2;
+        }
+        int output = element[pivot];
+        pivot--;
+        return output;
     }
     
-    
+    public int getPivot() {
+        return pivot;
+    }
     
 }
