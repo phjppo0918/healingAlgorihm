@@ -8,6 +8,8 @@ public class Main{
         
         StringTokenizer st = new StringTokenizer(br.readLine());
         int num[] = {Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken())};
+        int a = num[0];
+        int b = num[1];
         Arrays.sort(num);
         int ans1;
         while(true){
@@ -25,7 +27,7 @@ public class Main{
        
         //최대공약수는 유클리드 호제법
         bw.write(ans1+"\n");
-        bw.write(/ans1+"\n");
+        bw.write((a*b)/ans1+"\n");
         
         bw.flush();
 		br.close();
