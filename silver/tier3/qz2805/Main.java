@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 //import java.math.BigInteger;
 public class Main{
-    public static int tree[];
+    public static long tree[];
     public static int NUMBER_OF_TREE;
-    public static int REQUEST_LENGTH
+    public static long REQUEST_LENGTH;
     public static void main(String [] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -12,30 +12,31 @@ public class Main{
        
         StringTokenizer st = new StringTokenizer(br.readLine());
         NUMBER_OF_TREE = Integer.parseInt(st.nextToken());
-        REQUEST_LENGTH = Integer.parseInt(st.nextToken());
+        REQUEST_LENGTH = Long.parseLong(st.nextToken());
         
-        tree[] = new int[NUMBER_OF_TREE];
+        tree = new long[NUMBER_OF_TREE];
         st = new StringTokenizer(br.readLine());
         for(int i=0;i<NUMBER_OF_TREE;i++) {
-            tree[i] = Integer.parseInt(st.nextToken());
+            tree[i] = Long.parseLong(st.nextToken());
         }
-        //지금고민중인게...굳이 sort가필요할까
-        //max = 2,000,000,000
-        int max = 2000000000;
-        int min = 0;
-        int avg = 0;
-        int cutLength = 0;
-        while(min>=max) {
+        Arrays.sort(tree);
+        long  max = tree[NUMBER_OF_TREE-1];
+        long  min = 0l;
+        long  avg = 0l;
+        long  cutLength = 0l;
+        while(min<=max) {
             avg = (min+max)/2;
             cutLength = cut(avg);
-            if(cutLength > REQUEST_LENGTH) {
-                min = avg;
+            
+            if(cutLength >= REQUEST_LENGTH) {
+                min = avg+1;
                 
             }else {
-                max =avg;
+                max =avg-1;
             }
             
         }
+        bw.write(max+"\n");
         
        
         bw.flush();
@@ -44,9 +45,9 @@ public class Main{
         
         
     }
-    public static int cut(int high) {
-        int total = 0;
-        int temp = 0;
+    public static long  cut(long  high) {
+        long  total = 0l;
+        long  temp = 0l;
         for(int i=0;i<NUMBER_OF_TREE;i++) {
             temp = tree[i] - high;
             
@@ -54,7 +55,7 @@ public class Main{
                 total += temp;
             }
             
-            temp = 0;
+            temp = 0l;
         }
         
         return total;
