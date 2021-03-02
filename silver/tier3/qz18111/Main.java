@@ -35,7 +35,7 @@ public class Main{
                 }
             }
             
-            if(timeTemp < minTime) {
+            if(timeTemp <= minTime) {
                 minTime = timeTemp;
                 minHight = i;
             }
