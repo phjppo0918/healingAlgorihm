@@ -14,9 +14,11 @@ public class Main{
        //int wearCount[] = new int[30];
         //int pivot = 0;
         HashMap<String, Integer> wear; 
+        ArrayList<String> key;
         int answer[] = new int [NUMBER_OF_TESTCASE];
         for(int i=0;i<NUMBER_OF_TESTCASE;i++) {
-            wear = HashMap<String, Integer>();
+            wear = new HashMap<String, Integer>();
+            key = new ArrayList<String>();
             int numberOfWear = Integer.parseInt(br.readLine());
             for(int j=0;j<numberOfWear;j++) {
                 st = new StringTokenizer(br.readLine());
@@ -26,14 +28,20 @@ public class Main{
                     wear.replace(temp, wear.get(temp)+1);
                 }else {
                     wear.put(temp, 1);
+                    key.add(temp);
                 }
             }
            
             
             int answerTemp = 1;
-            for(int j=0;j<wear.size();j++) {
-                
+            for(String k : key) {
+               answerTemp *= (wear.get(k)+1);
             }
+            answer[i] = answerTemp -1;
+        }
+        
+        for(int i=0;i<NUMBER_OF_TESTCASE;i++) {
+            bw.write(answer[i]+"\n");
         }
         bw.flush();
         br.close();
