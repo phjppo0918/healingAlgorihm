@@ -36,6 +36,17 @@ public class Main{
             graph[num1][num2] = true;
             graph[num2][num1] = true;
         }
+        dfs(START_POINT);
+        bfs(START_POINT);
+        
+        while(!dfsAnswer.isEmpty()) {
+            bw.write(dfsAnswer.poll() + " ");
+        }
+        bw.write("\n");
+        while(!bfsAnswer.isEmpty()) {
+            bw.write(bfsAnswer.poll() + " ");
+        }
+        bw.write("\n");
         
         bw.flush();
         br.close();
@@ -55,11 +66,12 @@ public class Main{
         bfsTemp.offer(num);
         bfsIsVisit[num] = true;
         
-        while(bfsTemp.isEmpty()) {
-            bfsAnswer(bfsTemp.poll());
+        while(!bfsTemp.isEmpty()) {
+            int temp = bfsTemp.poll();
+            bfsAnswer.offer(temp);
             
             for(int i=1;i<NUMBER_OF_NODE+1;i++) {
-                if(graph[num][i]&&!dfsIsVisit[i]) {
+                if(graph[temp][i]&&!bfsIsVisit[i]) {
                     bfsTemp.offer(i);
                     bfsIsVisit[i] = true;
                 }
