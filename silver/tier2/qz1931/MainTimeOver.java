@@ -22,17 +22,42 @@ public class Main{
         Collections.sort(conferenceList);
        
       
-       
-        long roomFinishTime = -1l;
-        int confCount = 0;
-        for(int i=0;i<NUMBER_OF_CONFERENCE;i++) {
-            if(conferenceList.get(i).startTime>=roomFinishTime) {
+        int roomMaxCount = 0;
+        int roomCount = 0;
+        long roomFinishTime;
+        long MaxFirstConfFinishTime = conferenceList.get(NUMBER_OF_CONFERENCE-1).finishTime;
+        boolean repeatBreak = false;
+        while(true) {
+            for(int i=0;i<NUMBER_OF_CONFERENCE;i++) {
                 roomFinishTime = conferenceList.get(i).finishTime;
-                confCount++;
+                
+                if(conferenceList.get(i).startTime > MaxFirstConfFinishTime) {
+                    repeatBreak = true;
+                    break;
+                }
+                
+                roomCount++;
+                
+                for(int j=i+1;j<NUMBER_OF_CONFERENCE;j++) {
+                    if(roomFinishTime <= conferenceList.get(j).startTime) {
+                        roomFinishTime = conferenceList.get(j).finishTime;
+                        roomCount++;
+                    }
+                }
+                
+                if(roomMaxCount <= roomCount) {
+                    roomMaxCount = roomCount;
+                    MaxFirstConfFinishTime =  conferenceList.get(i).finishTime;
+                }
+                roomCount = 0;
+            }
+            
+            if(repeatBreak) {
+                break;
             }
         }
         
-        bw.write(confCount+"\n");
+        bw.write(roomMaxCount+"\n");
         
         bw.flush();
         br.close();
@@ -52,13 +77,13 @@ class Conference implements Comparable<Conference> {
     }
     @Override
     public int compareTo(Conference cf) {
-        //끝나는 시간대로 정렬을 하면?
-        if( finishTime>cf.finishTime) {
+        
+        if( startTime>cf.startTime) {
             return 1;
-        }else if(finishTime==cf.finishTime){
-            if(startTime > cf.startTime) {
+        }else if(startTime==cf.startTime){
+            if(finishTime > cf.finishTime) {
                 return 1;
-            }else if(startTime==cf.startTime) {
+            }else if(finishTime==cf.finishTime) {
                 return 0;
             }else {
                 return -1;
