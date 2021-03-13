@@ -1,0 +1,48 @@
+import java.util.*;
+import java.io.*;
+//import java.math.BigInteger;
+public class Main{
+    public static void main(String [] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
+        //StringTokenizer st;
+            //= new StringTokenizer(br.readLine());
+        int cycle = Integer.parseInt(br.readLine());
+        int totalLength = Integer.parseInt(br.readLine());
+        String str = br.readLine();
+        int count = 0;
+        boolean isIO = true;
+        
+        for(int i=0;i<totalLength-cycle-1;i++) {
+            if(str.charAt(i)=='I') {
+                for(int j=i+1;j<i+cycle;j+=2){
+                    if(str.charAt(j)!='O'||str.charAt(j+1)!='I') {
+                        isIO=false;
+                        break;
+                    }
+                }
+                
+                if(str.charAt(i+cycle+1)!='I') {
+                    isIO = false;
+                }
+                if(isIO) {
+                    conut++;
+                }else {
+                    isIO = true;
+                }
+            }
+        }
+        bw.write(conut+"\n");
+        
+        
+        
+        
+        
+        bw.flush();
+        br.close();
+        bw.close();
+        
+    } 
+   
+}
