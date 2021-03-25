@@ -3,8 +3,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 //import java.math.BigInteger;
 public class Main{
-    public static ArrayList<ArrayList<Integer>> graph;
-    public static boolean isGone[];
+   
     public static void main(String [] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -12,28 +11,31 @@ public class Main{
         StringTokenizer st;
         //= new StringTokenizer(br.readLine());
         
-        final int NUMBER_OF_LOCATION = Integer.parseInt(br.readLine());
-        
+        final int NUMBER_OF_CASE = Integer.parseInt(br.readLine());
+        ArrayList<Location> locList = new ArrayList<Location>();
+        int answer[] = new int[NUMBER_OF_CASE];
         st = new StringTokenizer(br.readLine());
-        int location[] = new int[NUMBER_OF_LOCATION];
-        for(int i=0;i<NUMBER_OF_LOCATION;i++) {
-            location[i] = Integer.parseInt(st.nextToken());
+        for(int i=0;i<NUMBER_OF_CASE;i++) {
+            locList.add(new Location(i,Integer.parseInt(st.nextToken())));
         }
-        int rank[] = new int [NUMBER_OF_LOCATION];
-        for(int i=0;i<NUMBER_OF_LOCATION-1;i++) {
-            for(int j=i+1;j<NUMBER_OF_LOCATION;j++) {
-                if(location[i]>location[j]) {
-                    rank[i]++;
-                }else if(location[i]<location[j]) {
-                    rank[j]++;
-                }
+       
+        Collections.sort(locList);
+        
+        int rank = 0;
+        answer[locList.get(0).pitch] = rank;
+        for(int i=1;i<locList.size();i++) {
+            if(locList.get(i).value == locList.get(i-1).value) {
+                answer[locList.get(i).pitch] = rank;
+            }else {
+                answer[locList.get(i).pitch] = ++rank;
             }
         }
-        for(int i=0;i<NUMBER_OF_LOCATION;i++) {
-            bw.write(rank[i]+" ");
-        }
-        bw.write("\n");
         
+        for(int i : answer) {
+            sb.append(i+" ");
+        }
+        sb.append("\n");
+        bw.write(sb.toString());
         
         bw.flush();
         br.close();
@@ -42,8 +44,27 @@ public class Main{
     } 
 
 }
-class Location {
+class Location implements Comparable<Location> {
+    int pitch;
     int value;
-    int rank;
-  
+    public Location(){}
+    public Location(int pitch, int value) {
+        this.pitch = pitch;
+        this.value = value;
+    }
+    
+    @Override
+    public int compareTo(Location loc) {
+        if(this.value > loc.value) {
+            return 1;
+        }else if (this.value == loc.value) {
+            return 0;
+        }else {
+            return -1;
+        }
+    }
+
+
 }
+
+
