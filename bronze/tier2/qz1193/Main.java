@@ -10,15 +10,15 @@ public class Main{
         //StringTokenizer st = new StringTokenizer(br.readLine());
         
         final int X = Integer.parseInt(br.readLine());
-        
-        boolean isUp = false;
+        int lmLime[] = new int[10000];
         int count = 0;
+        boolean isUp = false;
         int layer = 0;
         int x, y, gap;
-        while( (count + layer + 1) <= X) {
-      
+        while( count < X ) {
             layer++;
-            count += layer;
+            count += layer; 
+            isUp = !isUp;
         }
         
         gap = count - X; 
