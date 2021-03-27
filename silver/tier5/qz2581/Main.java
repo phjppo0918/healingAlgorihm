@@ -38,10 +38,18 @@ public class Main{
                 break;
             }
         }
-        sb.append(answer);
-        sb.append("\n");
-        sb.append(startPoint);
-        sb.append("\n");        
+        
+        if(startPoint==0) {
+            sb.append(-1);
+             sb.append("\n");  
+        }else {
+            sb.append(answer);
+            sb.append("\n");
+            sb.append(startPoint);
+            sb.append("\n");  
+            
+        }
+             
         bw.write(sb.toString());
         
         bw.flush();
