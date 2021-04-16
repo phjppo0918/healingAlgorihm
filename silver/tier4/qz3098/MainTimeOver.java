@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 //import java.math.BigInteger;
-public class Main{
+public class MainTimeOver{
     
     public static void main(String [] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,7 +36,9 @@ public class Main{
                         
                         for(int k=1;k<=NUMBER_OF_NODE;k++) {
                             
-                            if(k != i && k != j && graph[j][k] > 0 && graph[j][k] <= day && graph[i][k] == 0) {
+                            if (graph[j][k] > 0 && graph[j][k] < day +1 && k != i  && graph[i][k] == 0) {
+                                
+                                
                                 graph[i][k] = day + 1;
                                 graph[k][i] = day + 1;
                                 count++;
