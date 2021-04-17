@@ -26,8 +26,8 @@ public class Main{
                 tempUser = hanjo[i];
                 if(killTemp > bestKill) {
                     bestKill = killTemp;
-                    killTemp = 0;
                 }
+                killTemp = 0;
             }
         }
         
