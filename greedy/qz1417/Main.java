@@ -8,27 +8,26 @@ public class Main{
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
        // StringTokenizer st;// = new StringTokenizer(br.readLine());
+        
+        
         final int NUMBER_OF_CANDI = Integer.parseInt(br.readLine());
         int dasom = Integer.parseInt(br.readLine());
-        int other[] = new int [NUMBER_OF_CANDI-1];
+       
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
         for(int i=0;i<NUMBER_OF_CANDI-1;i++) {
-            other[i] = Integer.parseInt(br.readLine());
+            priorityQueue.add(Integer.parseInt(br.readLine()));
         }
-        
-        Arrays.sort(other);
         int answer = 0;
-        for(int i=NUMBER_OF_CANDI-2; i>-1;i--) {
-            if(dasom <= other[i]) {
-
-                int gap = other[i] - dasom; 
-                dasom += (gap/2 + 1);
-                other[i] -= (gap/2 +1);
-                answer += (gap/2 + 1);             
-            }else {
-                break;
-            }
+        if(NUMBER_OF_CANDI != 1) {
+            while(priorityQueue.peek() >= dasom) {
+                answer++;
+                dasom++;
+                int temp = priorityQueue.poll();
+                priorityQueue.add(temp-1);
+            
+            } 
         }
-        
+       
         
         sb.append(answer);
         sb.append("\n"); 
