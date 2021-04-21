@@ -24,6 +24,9 @@ public class Main{
                 while(x + 2 <= WIDTH) {
                     x+=2;
                     answer++;
+                    if(answer == 4) {
+                        break;
+                    }
                 }
                 
             }else {
