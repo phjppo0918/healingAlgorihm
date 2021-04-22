@@ -14,21 +14,26 @@ public class Main{
             int member[] = new int [numberOfMember];
             st = new StringTokenizer(br.readLine());
             for(int j=0;j<numberOfMember;j++) {
-                member[j] = Integer.parseInt(st.nextToken);
+                member[j] = Integer.parseInt(st.nextToken());
             }
             
             int pivot = 0;
             int answer = 0;
-            for(int j=0;j<numberOfMember-1;j++) {
-                if(member[j] > member[j+1]) {
-                    int temp = member[j];
-                    //버블 정렬 구현할거야~ 전환될떄마다 answer ++해주고~
-                    answer++;
+            for(int k = numberOfMember-1;k>0;k--) {
+                for(int j=0;j<k;j++) {
+                    if(member[j] > member[j+1]) {
+                        int temp = member[j];
+                        member[j] = member[j+1];
+                        member[j+1] = temp;
+                        answer++;
+                    }
                 }
             }
+            
+            sb.append(answer);
+            sb.append("\n"); 
         }
-        
-        sb.append("\n"); 
+       
         
         bw.write(sb.toString());
         
