@@ -10,29 +10,22 @@ public class Main{
         StringTokenizer st = new StringTokenizer(br.readLine());
         final int NUMBER_OF_POINT = Integer.parseInt(st.nextToken());
         final int TAPE_LENGTH =  Integer.parseInt(st.nextToken());
-        boolean spot[] = new boolean [1001];
+        boolean spot[] = new boolean [2050];
         st = new StringTokenizer(br.readLine());
         for(int i=0;i<NUMBER_OF_POINT;i++) {
             int point = Integer.parseInt(st.nextToken());
-            spot[i] = true;
+            spot[point] = true;
         }
         int answer = 0;
-        for(int i=1;i<1002-TAPE_LENGTH;i++) {
+        for(int i=0;i<2050;i++) {
             if(spot[i]) {
                 answer++;
                 for(int j=i;j<i+TAPE_LENGTH;j++) {
                     spot[j] = false;
                 }
-            } 
-        }
-        
-        for(int i=1000; i>= 1000-TAPE_LENGTH; i--) {
-            if(spot[i]) {
-                answer++;
-                break;
             }
-            
         }
+       
         
        
         sb.append(answer);
