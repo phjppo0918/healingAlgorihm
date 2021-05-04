@@ -9,10 +9,10 @@ public class Main{
         StringBuilder sb = new StringBuilder();
        // StringTokenizer st;// = new StringTokenizer(br.readLine());
         char input[] = br.readLine().toCharArray();
-        Stack<Character> stack = new Stack<Character>();
+        Stack<Integer> stack = new Stack<Integer>();
         for(int i=0;i<input.length;i++) {
             if(input[i] >= '0') {
-                stack.push(input[i]);
+                stack.push((int)(input[i] - '0'));
             }else {
                 int num1 = stack.pop();
                 int num2 = stack.pop();
@@ -21,13 +21,13 @@ public class Main{
                         stack.push(num1 + num2);
                         break;
                     case '-':
-                        stack.push(num1 - num2);
+                        stack.push(num2 - num1);
                         break;
                     case '*':
                         stack.push(num1 * num2);
                         break;
                     case '/':
-                        stack.push(num1 / num2);
+                        stack.push(num2 / num1);
                         break;
                 }
             }
