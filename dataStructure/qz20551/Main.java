@@ -31,7 +31,7 @@ public class Main{
             }else {
                 search.get(searchPivot).answer = alPivot;
                 searchPivot++;
-                alPivot++;
+                //alPivot++;
             }
         }
         
