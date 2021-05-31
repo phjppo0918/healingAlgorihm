@@ -7,58 +7,29 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
-        //StringTokenizer st;// = new StringTokenizer(br.readLine());
+        StringTokenizer st;// = new StringTokenizer(br.readLine());
         final int NUMBER_OF_TESTCASE = Integer.parseInt(br.readLine());
         int numberOfNote1Case, numberOfNote2Case;
-        ArrayList<Integer> note1;
+        Set<Integer> note1; 
         for(int i=0;i<NUMBER_OF_TESTCASE;i++) {
+            note1 = new HashSet<Integer>();
             numberOfNote1Case = Integer.parseInt(br.readLine());
-            char temp[] = br.readLine().toCharArray();
-            note1 = new ArrayList<Integer>();
+            st = new StringTokenizer(br.readLine());
             for(int j=0;j<numberOfNote1Case;j++) {
-                note1.add(temp[j] - '0');
+                note1.add(Integer.parseInt(st.nextToken()));
             }
-            Collections.sort(note1);
+            
             numberOfNote2Case = Integer.parseInt(br.readLine());
-            temp = br.readLine().toCharArray();
-            int note2[] = new int [numberOfNote2Case];
+            st = new StringTokenizer(br.readLine());
             for(int j=0;j<numberOfNote2Case;j++) {
-                note2[j] = temp[j] - '0';
-            }
-            boolean isTurn = false;
-            int pivot = 0;
-            for(int j=0;j<numberOfNote2Case;j++) {
-                if(note2[j] > note1.get(pivot)) {
-                    while(note2[j] > note1.get(pivot) && pivot != numberOfNote1Case) {
-                        pivot++;
-                    }
-                    if(note2[j] == note1.get(pivot)) {
-                        sb.append("1\n");
-                    }else {
-                        sb.append("0\n");
-                        if(pivot == numberOfNote1Case) {
-                            pivot--;
-                        }
-                    }
-                }else if(note2[j] < note1.get(pivot)) {
-                    while(note2[j] < note1.get(pivot) && pivot != -1) {
-                        pivot--;
-                    }
-                    if(note2[j] == note1.get(pivot)) {
-                        sb.append("1\n");
-                    }else {
-                        sb.append("0\n");
-                        if(pivot == -1) {
-                            pivot++;
-                        }
-                    }                  
-                }else {
+                int note2 = Integer.parseInt(st.nextToken());
+                if(note1.contains(note2)) {
                     sb.append("1\n");
+                }else {
+                    sb.append("0\n");
                 }
-                
-            }           
+            }
         }
-        sb.append("\n"); 
         
         bw.write(sb.toString());
         
