@@ -24,13 +24,13 @@ public class Main{
         }
         ArrayList<Num> numList = new ArrayList<Num>(map.values());
         Collections.sort(numList);
-        sb.append("\n"); 
         for(int i=0;i<numList.size();i++) {
             for(int j=0;j<numList.get(i).getFrequency();j++) {
                 sb.append(numList.get(i).getValue());
                 sb.append(" ");
             }
         }
+        sb.append("\n"); 
         bw.write(sb.toString());
         
         bw.flush();
