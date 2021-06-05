@@ -10,36 +10,38 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         //  StringTokenizer st = new StringTokenizer(br.readLine());
 
-        while(true) {
+        while (true) {
             long n = Long.parseLong(br.readLine());
-            boolean numArr[] = new boolean [10];
-            boolean isFin = false;
+            boolean numArr[] = new boolean[10];
+            boolean isFin = true;
             int grade = 1;
-            while(true) {
-                char temp[] = (""+n).toCharArray();
-                for(int i=0;i<temp.length;i++) {
-                    if( !numArr[ temp[i] - '0' ]) {
-                        numArr[ temp[i] - '0' ] = true;
+            long gradeNum = n;
+            while (true) {
+                char temp[] = String.valueOf(gradeNum).toCharArray();
+                for (int i = 0; i < temp.length; i++) {
+                    if (!numArr[temp[i] - '0']) {
+                        numArr[temp[i] - '0'] = true;
                     }
                 }
 
-                for(int i=0;i<10;i++) {
-                    if(!numArr[i]){
+                for (int i = 0; i < 10; i++) {
+                    if (!numArr[i]) {
+                        isFin = false;
                         break;
                     }
                     isFin = true;
                 }
 
-                if(isFin) {
+                if (isFin) {
                     sb.append(grade);
                     sb.append("\n");
                     break;
                 }
                 grade++;
-                n*=grade;
+                gradeNum = n * grade;
             }
 
-            if(!br.ready()) {
+            if (!br.ready()) {
                 break;
             }
         }
@@ -51,10 +53,6 @@ public class Main {
         br.close();
         bw.close();
 
-    }
-
-    public static long getArea(long x, long y, long z) {
-        return 2 * (x * y + y * z + z * x);
     }
 
 }
