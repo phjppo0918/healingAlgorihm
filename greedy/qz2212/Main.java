@@ -17,24 +17,26 @@ public class Main {
             sensor[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(sensor);
-        int lengthGop[] = new int[NUMBER_OF_SENSOR - 1];
-        for (int i = 0; i < NUMBER_OF_SENSOR - 1; i++) {
-            lengthGop[i] = sensor[i + 1] - sensor[i];
-        }
-        Arrays.sort(lengthGop);
-        int centralCount = 0;
-        int answer = 0;
-        int lengthPivot = 0;
         if (NUMBER_OF_SENSOR > NUMBER_OF_CENTRAL) {
-            while (true) {
-                for (int i = 0; i < NUMBER_OF_SENSOR; i++) {
-
-                }
+            int lengthGop[] = new int[NUMBER_OF_SENSOR - 1];
+            int totalGap = 0;
+            for (int i = 0; i < NUMBER_OF_SENSOR - 1; i++) {
+                lengthGop[i] = sensor[i + 1] - sensor[i];
+                totalGap += lengthGop[i];
             }
-
+            Arrays.sort(lengthGop);
+            int centralCount = NUMBER_OF_CENTRAL;
+            int gapArrPivot = NUMBER_OF_SENSOR - 2;
+            while (centralCount != 1) {
+                centralCount--;
+                totalGap -= lengthGop[gapArrPivot];
+                gapArrPivot--;
+            }
+            sb.append(totalGap);
         } else {
+            sb.append(0);
         }
-        sb.append(answer);
+
 
         sb.append("\n");
 
@@ -48,6 +50,3 @@ public class Main {
 
 
 }
-
-
-
