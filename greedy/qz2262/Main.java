@@ -15,23 +15,24 @@ public class Main {
         for (int i = 0; i < NUMBER_OF_MEMBER; i++) {
             member.add(Integer.parseInt(st.nextToken()));
         }
-        Integer lowestMmeber = NUMBER_OF_MEMBER;
+        Integer lowestMember = NUMBER_OF_MEMBER;
         int answer = 0;
-        while (member.size() != 1) {
-            int lowestMemberIndex = member.indexOf(lowestMmeber);
-            int gapTemp = 0;
+        while (lowestMember != 1) {
+            int lowestMemberIndex = member.indexOf(lowestMember);
+            int gapTemp;
             if (lowestMemberIndex == 0) {
-                gapTemp = member.get(0) - member.get(1);
+                gapTemp = member.get(lowestMemberIndex) - member.get(1);
             } else if (lowestMemberIndex == member.size() - 1) {
-                gapTemp = member.get(member.size() - 1) - member.get(member.size() - 2);
+                gapTemp = member.get(lowestMemberIndex) - member.get(member.size() - 2);
             } else {
                 if (member.get(lowestMemberIndex - 1) > member.get(lowestMemberIndex + 1)) {
                     gapTemp = member.get(lowestMemberIndex) - member.get(lowestMemberIndex - 1);
                 } else {
                     gapTemp = member.get(lowestMemberIndex) - member.get(lowestMemberIndex + 1);
                 }
-                member.remove(lowestMemberIndex);
             }
+            member.remove(lowestMemberIndex);
+            lowestMember--;
             answer += gapTemp;
         }
 
