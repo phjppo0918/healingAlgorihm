@@ -21,11 +21,15 @@ public class Main {
         Collections.sort(lectures);
 
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+        priorityQueue.add(lectures.get(0).finish);
+        for (int i = 1; i < lectures.size(); i++) {
+            if (priorityQueue.peek() <= lectures.get(i).start) {
+                priorityQueue.poll();
+            }
+            priorityQueue.add(lectures.get(i).finish);
+        }
 
-        answer++;
-        lectureFinishTime = 1;
-    }
-        sb.append(answer);
+        sb.append(priorityQueue.size());
         sb.append("\n");
 
         bw.write(sb.toString());
@@ -34,7 +38,7 @@ public class Main {
         br.close();
         bw.close();
 
-}
+    }
 
 }
 
