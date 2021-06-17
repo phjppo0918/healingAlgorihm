@@ -13,25 +13,40 @@ public class Main {
         //StringTokenizer st;
 
         Stack<Character> stack = new Stack<>();
+        Stack<Integer> repeat = new Stack<>();
+        Stack<Integer> plusTemp = new Stack<>();
         char input[] = br.readLine().toCharArray();
-        int strLength = 0;
+        int length = 0;
         for (int i = 0; i < input.length; i++) {
-            if (input[i] == ')') {
-                while (true) {
-                    char stackPop = stack.pop();
-                    if (stackPop == '(') {
-                        strLength *= (stack.pop() - '0');
-                        break;
-                    }
-                    strLength++;
+            if (input[i] == '(') {
+                repeat.add(stack.pop() - '0');
+                stack.add('(');
+            } else if (input[i] == ')') {
 
+                int lengthCount = 0;
+                char pop;
+                while ((pop = stack.pop()) != '(') {
+                    if (pop == '*') {
+                        lengthCount += plusTemp.pop();
+                        continue;
+                    }
+
+                    lengthCount++;
                 }
+                plusTemp.add(lengthCount * repeat.pop());
+                stack.add('*');
             } else {
                 stack.add(input[i]);
             }
         }
-        sb.append(strLength + stack.size());
-
+        while (!stack.isEmpty()) {
+            if (stack.pop() == '*') {
+                length += plusTemp.pop();
+            } else {
+                length++;
+            }
+        }
+        sb.append(length);
         sb.append("\n");
         bw.write(sb.toString());
 
