@@ -15,7 +15,7 @@ public class Main {
         Stack<Character> stack = new Stack<>();
         final char INPUT[] = br.readLine().toCharArray();
         for (int i = 0; i < INPUT.length; i++) {
-            if ('A' <= INPUT[i] || INPUT[i] <= 'Z') {
+            if ('A' <= INPUT[i] && INPUT[i] <= 'Z') {
                 sb.append(INPUT[i]);
             } else if (INPUT[i] == '(') {
                 stack.add('(');
